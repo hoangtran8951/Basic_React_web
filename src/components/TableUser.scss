@@ -1,0 +1,42 @@
+.sort-header{
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    i {
+        cursor: pointer;
+        padding: 0 2px;
+    }
+    .box {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        // width: 100px;
+      }
+      .box>*:first-child {
+        align-self: stretch;
+      }
+      
+  }
+
+.normal-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.group-btns{
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  i{
+    padding: 0 2px;
+  }
+}
+
+.cus-table{
+  overflow-x: auto;
+}
+
+.pagination-center{
+  display: flex;
+  justify-content: center;
+}
