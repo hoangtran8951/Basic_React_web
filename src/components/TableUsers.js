@@ -107,7 +107,7 @@ const TableUsers = (props) => {
                       return index;
                     })
                     if(i === event.target.files.length -1)
-                      setListUser(newList);
+                      setListUser(newList.concat(listUser));
                   }
                 }
                 else  

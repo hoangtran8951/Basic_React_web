@@ -14,8 +14,10 @@ const ModalUploadFile = ({handleImportCSV}) => {
     // ref
     const inputRef = useRef(null);
     const handleDrag = (e) => {
-      e.preventDefault();
+     
       e.stopPropagation();
+      e.preventDefault();
+      // console.log(e);
       if (e.type === "dragenter" || e.type === "dragover") {
         setDragActive(true);
       } else if (e.type === "dragleave") {
@@ -23,20 +25,26 @@ const ModalUploadFile = ({handleImportCSV}) => {
       }
     };
     const handleDrop = (e) => {
-      e.preventDefault();
       e.stopPropagation();
+      e.preventDefault();
+      
       setDragActive(false);
+      // console.log(e);
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
         // handleFiles(e.dataTransfer.files);
+        let event = e;
+        event.target = e.dataTransfer;
+        event.target.files = e.dataTransfer.files;
+        handleImportCSV(event);
+        handleClose();
       }
     };
     const handleChange = function(e) {
       e.preventDefault();
       if (e.target.files && e.target.files[0]) {
         // handleFiles(e.target.files);
-        handleClose();
         handleImportCSV(e);
-        
+        handleClose();
       }
     };
     
