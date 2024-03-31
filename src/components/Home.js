@@ -12,20 +12,14 @@ const Home = () => {
                     <li>4. Xóa User</li>
                     <li>5. Hiển thị tất cả các User</li>
                     <li>6. Tìm kiếm User theo ID</li>
-                    <li>7. Sắp xếp theo FristName</li>
+                    <li>7. Sắp xếp theo FirstName</li>
                     <li>8. Import User từ file .csv</li>
                     <li>9. Export User ra file .csv</li>
                 </ul>
                 <br/>
-                Tự do tùy chình html, css để cố một website nhẹ nhàng, khoa học và đẹp.<br/>
-                Commit và đầy source code lên gihub public.<br/>
-                Triển khai website lên Heroku để demo.<br/>
+                Github link: https://github.com/hoangtran8951/Basic_React_web.git<br/>
+                Client: https://basic-react-web.vercel.app/<br/>
                 <br/>
-                <strong>Result:</strong> Thời gian hoàn thành: 1-3 ngày<br/>
-                Gửi link Heroku và Github link lại email này <br/>
-                Thời gian phản hồi 2 ngày làm việc kể từ ngày nhận được bài thi.<br/>
-                Yêu cầu backend(optional):<br/>
-                Sử dụng python django rest framework tạo các api như trên trang web https://reqres.in/
                 
             </div>
         </>

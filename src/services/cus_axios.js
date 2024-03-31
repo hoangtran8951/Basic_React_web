@@ -23,7 +23,6 @@ instance.interceptors.response.use(function (response) {
     else
       console.log("Error", error.message);
     return res;
-    // return Promise.reject(error);
   });
 
 
