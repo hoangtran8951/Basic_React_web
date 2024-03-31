@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import { fecthAllUser } from '../services/UserService';
-// import ReactPaginate from 'react-paginate';
 import ModalAddNew from './ModalAddNew';
 import ModalEditUser from './ModalEditUser';
 import ModalDeleteUser from './ModalDeleteUser';
@@ -17,10 +16,7 @@ import { Pagination } from '@mui/material';
 const TableUsers = (props) => {
     const [listUser, setListUser] = useState([]);
     const [totalPages, setTotalPages] = useState(0);
-    // const [sortBy, setSortBy] = useState("asc");
-    // const [sortField, setSortField] = useState("id");
     const [inputSearch, setInputSearch] = useState("");
-    // const [currentPage, setCurrentPage] = useState(1);
     const [page, setPage] = useState(1);
     useEffect(() => {
           getUser(1);
@@ -28,17 +24,10 @@ const TableUsers = (props) => {
     const getUser = async (page) => {
         let res = await fecthAllUser(page);
         if(res && res.data){
-          // console.log("res", res);
           setTotalPages(res.total_pages);
           setListUser(res.data);
         }
     }
-
-    // const handlePageClick = async (event) =>{
-    //   console.log(event);
-    //   setCurrentPage(+event.selected+1);
-    //   getUser(+event.selected +1);  // Add "+" at the start to make sure that the parameter is integer
-    // }
 
     const handleUpdateTable = (user) => {
       setListUser([user, ...listUser]);
@@ -55,22 +44,27 @@ const TableUsers = (props) => {
       setListUser(CloneList);
     }
     const handleSorting = (sortby, sortfield) => {
-      // setSortBy(sortby);
-      // setSortField(sortfield);
-
       let CloneList = _.cloneDeep(listUser);
       CloneList = _.orderBy(CloneList, [sortfield], [sortby]);
       setListUser(CloneList);
     }
     const handleSearchByEmail = () => {
-      // console.log(inputSearch);
       if(inputSearch !== ""){
         let CloneList = _.cloneDeep(listUser);
         CloneList = CloneList.filter((item) => { return item.email.includes(inputSearch);});
-        setListUser(CloneList);
+        if(CloneList.length === 0){
+          getUser(page);
+          CloneList = _.cloneDeep(listUser);
+          CloneList = CloneList.filter((item) => { return item.email.includes(inputSearch);});
+        }
+
+        if(CloneList.length === 0){
+          toast.error("Email not found");
+        }
+        else
+          setListUser(CloneList);
       }
       else
-        // getUser(currentPage);
         getUser(page);
     };
     const deboundSearch = useMemo( () => _.debounce(handleSearchByEmail, 300),[inputSearch])
@@ -90,8 +84,10 @@ const TableUsers = (props) => {
               let rawdata = results.data;
               if(rawdata.length > 0){
                 if(rawdata[0] && rawdata[0].length === 3){
-                  if(rawdata[0][0] !== 'email' || rawdata[0][1] !== 'first_name' || rawdata[0][2] !== 'last_name')
+                  if(rawdata[0][0] !== 'email' || rawdata[0][1] !== 'first_name' || rawdata[0][2] !== 'last_name'){
                     toast.error(`The file ${event.target.files[i].name} has wrong format header CSV file!`);
+                    toast.warning(`The valid headers are email, first_name, last_name respectively`);
+                  }
                   else {
                     // let result = [];
                     rawdata.map((item, index) => {
@@ -106,8 +102,10 @@ const TableUsers = (props) => {
                       }
                       return index;
                     })
-                    if(i === event.target.files.length -1)
+                    if(i === event.target.files.length -1){
                       setListUser(newList.concat(listUser));
+                      toast.success(`Import file ${event.target.files[i].name} successfully`)
+                    }
                   }
                 }
                 else  

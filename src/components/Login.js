@@ -46,12 +46,12 @@ const Login = () => {
             toast.success("you logged in succeed");
             }
             else{
-                toast.error("Your Email and/or Password are incorrect");
+                toast.error(`Your Email and/or Password are incorrect (use email: "eve.holt@reqres.in" for testing`);
             }
         }
         else {
             // invalid email, maybe show an error to the user.
-            toast.error("Your Email is invalid");
+            toast.error(`Your Email is invalid (use email: "eve.holt@reqres.in" for testing`);
         }
     }
     const handlePressEnter = (event) => {
@@ -83,7 +83,6 @@ const Login = () => {
             </div>
             <button disabled={!isActive} onClick={() => {!isLoading && LoginReq()}}>
                 {isLoading ? <i className="fa-solid fa-spinner fa-spin-pulse"></i> : <span>Login</span>} 
-                {/* {isLoading && <i className="fa-solid fa-spinner fa-spin-pulse"></i>} Login  */}
             </button>
             <div className='back' onClick={()=>navigate("/")}><i className="fa-solid fa-chevron-left"></i> <span className='text-back'>Go back</span></div>
         </div>
