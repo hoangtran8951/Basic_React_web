@@ -21,6 +21,9 @@ const Login = () => {
             toast.success("You've already logged in");
             navigate("/");
         }
+        else{
+            toast.warning(`Use email: "eve.holt@reqres.in" for testing`);
+        }
     },[navigate])
     useEffect(() => {
         if(username !== "" && password !== "")
